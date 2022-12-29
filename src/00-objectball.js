@@ -56,11 +56,88 @@ function numPointsScored(playerName){
     return -1;
 }
 
-function init(){
-    console.log(numPointsScored("Alan Anderson"));
+function shoeSize(playerName){
+    const gameObj=gameObject();
+    const teams=Object.values(gameObj);
+    for(let i=0; i<teams.length; i++){
+        const players=teams[i].players;
+        if(players[playerName]!=undefined){
+            return players[playerName].shoe;
+        }
+    }
+    return -1;
 }
 
-init();
+function teamColors(teamName){
+    const gameObj=gameObject();
+    const teams=Object.values(gameObj);
+    for(let i=0;i<teams.length; i++){
+        const team=teams[i];
+        if(team.name==teamName){
+            return team.colors;
+        }
+    }
+    return [];
+}
+
+function playerNumbers(teamName){
+    const gameObj=gameObject();
+    const teams=Object.values(gameObj);
+    let team;
+    for(let i=0; i<teams.length; i++){
+       team=teams[i];
+       if(team.name==teamName){
+        const players=team.players;
+        const playerNames=Object.keys(players);
+        const teamNumbers=[];
+        playerNames.forEach(playerName=>{
+            teamNumbers.push(players[playerName].number);
+        });
+        return teamNumbers;
+       }
+    }
+    return [];
+}
+
+function playerStats(playerName){
+    const gameObj=gameObject();
+    const teams=Object.values(gameObj);
+    for(let i=0; i<teams.length; i++){
+        const team=teams[i];
+        const players=team.players;
+        if(players[playerName]!=undefined){
+            return players[playerName];
+        }
+    }
+    return {};
+}
+
+function bigShoeRebounds(){
+    const largestShoeSizePlayerStats=getLargestShoeSizePlayerStats();
+    return largestShoeSizePlayerStats.rebounds;
+}
+
+function getLargestShoeSizePlayerStats(){
+    const gameObj=gameObject();
+    const teams=Object.values(gameObj);
+    let playerStats=[];
+    teams.forEach(team=>{
+        const players=team.players;
+        const teamPlayerStats=Object.values(players);
+        playerStats=playerStats.concat(teamPlayerStats);
+    });
+    console.log(playerStats);
+}
+
+function teamNames(){
+    const gameObj=gameObject();
+    const teams=Object.values(gameObj);
+    const teamNames=[];
+    teams.forEach(team=>{
+        teamNames.push(team.name);
+    });
+    return teamNames;
+}
 
 function gameObject2(){
     return {
