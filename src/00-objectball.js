@@ -126,7 +126,13 @@ function getLargestShoeSizePlayerStats(){
         const teamPlayerStats=Object.values(players);
         playerStats=playerStats.concat(teamPlayerStats);
     });
-    console.log(playerStats);
+    let largestReboundsStats=playerStats[0];
+    for(let i=1; i<playerStats.length; i++){
+        if(playerStats[i].rebounds>largestReboundsStats.rebounds){
+            largestReboundsStats=playerStats[i];
+        }
+    }
+    return largestReboundsStats;
 }
 
 function teamNames(){
