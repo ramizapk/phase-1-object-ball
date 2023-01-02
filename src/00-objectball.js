@@ -145,6 +145,27 @@ function teamNames(){
     return teamNames;
 }
 
+function mostPointsScored(){
+    const gameObj=gameObject();
+    const teams=Object.values(gameObj);
+    let players=[];
+    teams.forEach(team=>{
+        let curPlayers=Object.entries(team.players);
+        players=players.concat(curPlayers);
+    });
+    let highestScore=players[0][1].points;
+    let highestScorePlayer=players[0][0];
+    for(let i=1; i<players.length; i++){
+        const curScore=players[i][1].points;
+        const curPlayer=players[i][0];
+        if(curScore>highestScore){
+            highestScore=curScore;
+            highestScorePlayer=curPlayer;
+        }
+    }
+    return highestScorePlayer;
+}
+
 function gameObject2(){
     return {
         "home":{
