@@ -166,6 +166,44 @@ function mostPointsScored(){
     return highestScorePlayer;
 }
 
+function winningTeam(){
+    const gameObj=gameObject();
+    const teams=Object.values(gameObj);
+    let winningTeam=teams[0];
+    let maxPoints=getTotalPoints(winningTeam);
+    for(let i=1; i<teams.length; i++){
+        const totalPoints=getTotalPoints(teams[i]);
+        if(totalPoints>maxPoints){
+            winningTeam=teams[i];
+            maxPoints=getTotalPoints(winningTeam);
+        }
+    }
+    return winningTeam.name;
+}
+
+function getTotalPoints(team){
+    const players=team.players;
+    const stats=Object.values(players);
+    let totalPoints=0;
+    stats.forEach(stat=>{
+        totalPoints+=stat.points;
+    });
+    return totalPoints;
+}
+
+function max(arr){
+    if(arr.length>0){
+        let max=arr[0];
+        for(let i=0; i<arr.length; i++){
+            if(arr[i]>max){
+                max=arr[i];
+            }
+        }
+        return max;
+    }
+    return 0;
+}
+
 function gameObject2(){
     return {
         "home":{
