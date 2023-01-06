@@ -11,7 +11,7 @@ function gameObject(){
     stats=[[4,18,10,1,1,2,7,2],[0,16,12,4,7,7,15,10],[2,14,24,12,12,4,5,5],[8,15,33,3,2,1,1,0],[33,15,6,12,12,22,5,12]];
     gameObj.away=teamObject("Charlotte Hornets",colors,playersObject(players,stats));
     return gameObj;
-
+    
     function teamObject(name,colors,players){
         const teamObj={};
         teamObj.name=name;
@@ -195,7 +195,7 @@ function max(arr){
     if(arr.length>0){
         let max=arr[0];
         for(let i=0; i<arr.length; i++){
-            if(arr[i]>max){
+            if(arr[i].length>max.length){
                 max=arr[i];
             }
         }
@@ -204,6 +204,7 @@ function max(arr){
     return 0;
 }
 
+    
 function gameObject2(){
     return {
         "home":{
@@ -318,5 +319,63 @@ function gameObject2(){
                 }
             }
         }
+        
     }
+    
 }
+
+
+function homeTeamName() {
+    let object = gameObject();
+    return object['home']['name'];
+  }
+  
+  function playerWithLongestName(){
+    const gameObj=gameObject();
+    let longestName="";
+    let players={};
+    const teamsNumber=Object.keys(gameObj).length;
+    for(let i=0;i<teamsNumber; i++){
+        players=Object.keys(Object.values(gameObj)[i]['players']);
+        longestName=max(players);
+    }
+    return longestName;
+}
+  
+function playerWithMostSteal(){
+    const gameObj=gameObject();
+    const teams=Object.values(gameObj);
+    let largSteal=0;
+    let playerWithLargSteal='';
+    let team;
+    // const steals={};
+    for(let i=0; i<teams.length; i++){
+       team=teams[i];
+       
+        const players=team.players;
+        const playerNames=Object.keys(players);
+        
+        playerNames.forEach(playerName=>{
+            if(players[playerName].steals>largSteal){
+                largSteal=players[playerName].steals
+                playerWithLargSteal=playerName;
+            }
+            // steals[playerName]=players[playerName].steals;
+            // steals.push(players[playerName].steals);
+        });
+        
+       
+    }
+    return [playerWithLargSteal,largSteal];
+}
+function doesLongNameStealATon(){
+    const playerName=playerWithLongestName();
+    if(playerName ==playerWithMostSteal()[0]){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
+
